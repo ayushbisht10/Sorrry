@@ -4,82 +4,72 @@
 <meta charset="UTF-8">
 <title>Sorry Cutieee 🥹</title>
 
-<!-- 🎉 Confetti Library -->
+<!-- 🎉 Confetti -->
 <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 
 <style>
-    body {
-        margin: 0;
-        padding: 0;
-        font-family: 'Comic Sans MS', cursive;
-        background: #ffe6ec;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        height: 100vh;
-        overflow: hidden;
-    }
+body{
+    margin:0;
+    height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    background:#ffe6ec;
+    font-family:'Comic Sans MS',cursive;
+    overflow:hidden;
+}
 
-    .slide {
-        display: none;
-        background: #fff;
-        width: 90%;
-        max-width: 350px;
-        padding: 20px;
-        border-radius: 20px;
-        text-align: center;
-        box-shadow: 0 10px 25px rgba(0,0,0,0.2);
-        position: relative;
-        z-index: 2;
-    }
+.slide{
+    display:none;
+    background:#fff;
+    width:90%;
+    max-width:350px;
+    padding:20px;
+    border-radius:20px;
+    text-align:center;
+    box-shadow:0 10px 25px rgba(0,0,0,.2);
+    position:relative;
+}
 
-    .slide.active {
-        display: block;
-    }
+.slide.active{display:block}
 
-    img {
-        width: 200px;
-        margin-bottom: 15px;
-    }
+img{
+    width:200px;
+    margin-bottom:15px;
+}
 
-    h2 {
-        margin: 10px 0;
-        color: #ff4d6d;
-    }
+h2{color:#ff4d6d}
+p{font-size:16px}
 
-    p {
-        font-size: 16px;
-    }
+.buttons{
+    position:relative;
+    height:60px;
+    margin-top:20px;
+}
 
-    .buttons {
-        margin-top: 20px;
-        position: relative;
-        height: 60px;
-    }
+button{
+    position:absolute;
+    padding:10px 22px;
+    border:none;
+    border-radius:20px;
+    font-size:16px;
+    cursor:pointer;
+}
 
-    button {
-        padding: 10px 20px;
-        border: none;
-        border-radius: 20px;
-        font-size: 16px;
-        cursor: pointer;
-        position: absolute;
-        z-index: 3;
-    }
+.yes{
+    background:#4caf50;
+    color:#fff;
+    left:20%;
+}
 
-    .yes {
-        background: #4caf50;
-        color: white;
-        left: 20%;
-    }
-
-    .no {
-        background: #f44336;
-        color: white;
-        right: 20%;
-    }
+.no{
+    background:#f44336;
+    color:#fff;
+    right:20%;
+}
 </style>
 </head>
+
 <body>
 
 <!-- SLIDE 1 -->
@@ -99,7 +89,10 @@
     <p>please maaf krdoo maan jao naa</p>
     <div class="buttons">
         <button class="yes" onclick="yesClicked()">YES</button>
-        <button class="no" onmouseover="moveNo(this)">NO</button>
+        <button class="no"
+            ontouchstart="moveNo(this)"
+            onmouseenter="moveNo(this)"
+            onclick="nextSlide()">NO</button>
     </div>
 </div>
 
@@ -110,7 +103,10 @@
     <p>kyuu aisa kr reh hoo plzz mn jaooo</p>
     <div class="buttons">
         <button class="yes" onclick="yesClicked()">YES</button>
-        <button class="no" onmouseover="moveNo(this)">NO</button>
+        <button class="no"
+            ontouchstart="moveNo(this)"
+            onmouseenter="moveNo(this)"
+            onclick="nextSlide()">NO</button>
     </div>
 </div>
 
@@ -121,7 +117,10 @@
     <p>chiizzi khane chlenge 😋</p>
     <div class="buttons">
         <button class="yes" onclick="yesClicked()">YES</button>
-        <button class="no" onmouseover="moveNo(this)">NO</button>
+        <button class="no"
+            ontouchstart="moveNo(this)"
+            onmouseenter="moveNo(this)"
+            onclick="nextSlide()">NO</button>
     </div>
 </div>
 
@@ -132,44 +131,46 @@
 </div>
 
 <script>
-    let current = 0;
-    const slides = document.querySelectorAll('.slide');
+let current=0;
+const slides=document.querySelectorAll(".slide");
 
-    function nextSlide() {
-        vibratePhone();
-        slides[current].classList.remove('active');
+function nextSlide(){
+    vibrate();
+    if(current<slides.length-2){
+        slides[current].classList.remove("active");
         current++;
-        slides[current].classList.add('active');
+        slides[current].classList.add("active");
     }
+}
 
-    function yesClicked() {
-        blastConfetti();
-        slides[current].classList.remove('active');
-        slides[slides.length - 1].classList.add('active');
-    }
+function yesClicked(){
+    blast();
+    slides[current].classList.remove("active");
+    slides[slides.length-1].classList.add("active");
+}
 
-    function moveNo(btn) {
-        vibratePhone();
-        const parent = btn.parentElement;
-        const x = Math.random() * (parent.offsetWidth - btn.offsetWidth);
-        const y = Math.random() * (parent.offsetHeight - btn.offsetHeight);
-        btn.style.left = x + 'px';
-        btn.style.top = y + 'px';
-    }
+function moveNo(btn){
+    vibrate();
+    const p=btn.parentElement;
+    const x=Math.random()*(p.offsetWidth-btn.offsetWidth);
+    const y=Math.random()*(p.offsetHeight-btn.offsetHeight);
+    btn.style.left=x+"px";
+    btn.style.top=y+"px";
+}
 
-    function vibratePhone() {
-        if (navigator.vibrate) {
-            navigator.vibrate([120, 60, 120]);
-        }
+function vibrate(){
+    if(navigator.vibrate){
+        navigator.vibrate([100,50,100]);
     }
+}
 
-    function blastConfetti() {
-        confetti({
-            particleCount: 200,
-            spread: 90,
-            origin: { y: 0.6 }
-        });
-    }
+function blast(){
+    confetti({
+        particleCount:200,
+        spread:90,
+        origin:{y:0.6}
+    });
+}
 </script>
 
 </body>
