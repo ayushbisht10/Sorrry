@@ -4,7 +4,6 @@
 <meta charset="UTF-8">
 <title>Sorry Cutieee 🥹</title>
 
-<!-- 🎉 Confetti -->
 <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 
 <style>
@@ -22,10 +21,10 @@ body{
 .slide{
     display:none;
     background:#fff;
-    width:90%;
-    max-width:350px;
-    padding:20px;
-    border-radius:20px;
+    width:92%;
+    max-width:400px;   /* thoda bada card */
+    padding:28px;
+    border-radius:22px;
     text-align:center;
     box-shadow:0 10px 25px rgba(0,0,0,.2);
     position:relative;
@@ -34,39 +33,36 @@ body{
 .slide.active{display:block}
 
 img{
-    width:200px;
-    margin-bottom:15px;
+    width:280px;      /* 🔥 GIF bigger */
+    margin-bottom:20px;
 }
 
-h2{color:#ff4d6d}
-p{font-size:16px}
+h2{
+    font-size:26px;   /* 🔥 heading bigger */
+    color:#ff4d6d;
+}
+
+p{
+    font-size:20px;   /* 🔥 text bigger */
+}
 
 .buttons{
     position:relative;
-    height:60px;
-    margin-top:20px;
+    height:130px;
+    margin-top:25px;
 }
 
 button{
     position:absolute;
-    padding:10px 22px;
+    padding:14px 30px;
     border:none;
-    border-radius:20px;
-    font-size:16px;
+    border-radius:30px;
+    font-size:18px;   /* 🔥 button text bigger */
     cursor:pointer;
 }
 
-.yes{
-    background:#4caf50;
-    color:#fff;
-    left:20%;
-}
-
-.no{
-    background:#f44336;
-    color:#fff;
-    right:20%;
-}
+.yes{background:#4caf50;color:#fff;left:20%}
+.no{background:#f44336;color:#fff;right:20%}
 </style>
 </head>
 
@@ -90,8 +86,8 @@ button{
     <div class="buttons">
         <button class="yes" onclick="yesClicked()">YES</button>
         <button class="no"
-            ontouchstart="moveNo(this)"
-            onmouseenter="moveNo(this)"
+            ontouchstart="moveNoCardSmooth(this)"
+            onmouseenter="moveNoCardSmooth(this)"
             onclick="nextSlide()">NO</button>
     </div>
 </div>
@@ -104,8 +100,8 @@ button{
     <div class="buttons">
         <button class="yes" onclick="yesClicked()">YES</button>
         <button class="no"
-            ontouchstart="moveNo(this)"
-            onmouseenter="moveNo(this)"
+            ontouchstart="moveNoCardSmooth(this)"
+            onmouseenter="moveNoCardSmooth(this)"
             onclick="nextSlide()">NO</button>
     </div>
 </div>
@@ -118,8 +114,8 @@ button{
     <div class="buttons">
         <button class="yes" onclick="yesClicked()">YES</button>
         <button class="no"
-            ontouchstart="moveNo(this)"
-            onmouseenter="moveNo(this)"
+            ontouchstart="moveNoScreen(this)"
+            onmouseenter="moveNoScreen(this)"
             onclick="nextSlide()">NO</button>
     </div>
 </div>
@@ -149,25 +145,32 @@ function yesClicked(){
     slides[slides.length-1].classList.add("active");
 }
 
-function moveNo(btn){
+function moveNoCardSmooth(btn){
     vibrate();
-    const p=btn.parentElement;
-    const x=Math.random()*(p.offsetWidth-btn.offsetWidth);
-    const y=Math.random()*(p.offsetHeight-btn.offsetHeight);
-    btn.style.left=x+"px";
-    btn.style.top=y+"px";
+    const box = btn.parentElement;
+    const maxX = box.clientWidth - btn.offsetWidth;
+    const maxY = box.clientHeight - btn.offsetHeight;
+    btn.style.left = Math.random()*maxX + "px";
+    btn.style.top  = Math.random()*maxY + "px";
+}
+
+function moveNoScreen(btn){
+    vibrate();
+    btn.style.position="fixed";
+    btn.style.left = Math.random()*(window.innerWidth-btn.offsetWidth) + "px";
+    btn.style.top  = Math.random()*(window.innerHeight-btn.offsetHeight) + "px";
 }
 
 function vibrate(){
     if(navigator.vibrate){
-        navigator.vibrate([100,50,100]);
+        navigator.vibrate([120,60,120]);
     }
 }
 
 function blast(){
     confetti({
-        particleCount:200,
-        spread:90,
+        particleCount:220,
+        spread:100,
         origin:{y:0.6}
     });
 }
